@@ -2,10 +2,12 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Reproductor Música</title>
+	<link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<h1>Titulo hola</h1>
+	<h1>Reproductor Música NodeJs</h1>
 	<div class="app">
 		<div class="contenedor-izquierdo">
 			<ul class="lista-canciones">	
@@ -17,16 +19,17 @@
 				</li>
 			</ul>
 		</div>
-	</div>
-	<div class="contenedor-derecho">
-		<audio src="/canciones/take_you.mp3" class="audio" id="audio" controls></audio>
-	</div>
+	
+		<div class="contenedor-derecho">
+			<audio src="/canciones/take_you.mp3" class="audio" id="audio" controls></audio>
+		</div>
 
-	<form action="/canciones" method="POST" enctype="multipart/form-data" class="upload-form">
-		Subir cancion
-		<input type="file" name="cancion" />
-		<input type="submit" value="Subir">
-	</form>
+		<form action="/canciones" method="POST" enctype="multipart/form-data" class="upload-form">
+			Subir cancion
+			<input type="file" name="cancion" />
+			<input type="submit" value="Subir">
+		</form>
+	</div>
 	<script type="text/javascript" src="/jquery/jquery.js"></script>
 	<script type="text/javascript" src="/js/main.js"></script>
 </body>
