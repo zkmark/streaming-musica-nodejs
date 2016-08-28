@@ -11,6 +11,8 @@
 
 // Con el metodo static le asignamos la carpeta estatica
 	app.use(express.static('public'));
+// Instalamos Jquery npm install jquery --save
+	app.use('/jquery', express.static(path.join(__dirname, 'node_modules', 'jquery', 'dist')));
 
 //Por medio de get le enviamos un mensaje 
 	app.get('/', function(req, res){
