@@ -9,6 +9,9 @@
 // Importamos el modulo path, para manipular los directosios del SO
 	var path = require('path');
 
+// Con el metodo static le asignamos la carpeta estatica
+	app.use(express.static('public'));
+
 //Por medio de get le enviamos un mensaje 
 	app.get('/', function(req, res){
 		//Enviamos un archivo concatenando el directorio actual mas index.html
