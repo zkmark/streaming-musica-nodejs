@@ -12,6 +12,24 @@
 	var fs = require('fs');
 // Instalamos media server npm install mediaserver --save (para audio)
 	var mediaserver = require('mediaserver');
+// Instalamos npm install multer --save (midelware para procesar la data)
+	var multer = require('multer');
+
+// Opciones para Almacenar en el disco
+	var opcionesMulter = multer.diskstorage({
+		//Donde se guardara 
+		destination: function(req, file, callback){
+			callback(null, path.join(__dirname, 'canciones'));
+		},
+		filename: function(req, file, callback){
+			//La guardamos con el nombre que tenia
+			callback(null, file.originalname);
+		}
+	});
+
+	var upload = multer({
+		storage: opcionesMulter
+	});
 
 // Con el metodo static le asignamos la carpeta estatica
 	app.use(express.static('public'));
