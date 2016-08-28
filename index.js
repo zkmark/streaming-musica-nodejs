@@ -16,7 +16,7 @@
 	var multer = require('multer');
 
 // Opciones para Almacenar en el disco
-	var opcionesMulter = multer.diskstorage({
+	var opcionesMulter = multer.diskStorage({
 		//Donde se guardara 
 		destination: function(req, file, callback){
 			callback(null, path.join(__dirname, 'canciones'));
@@ -39,7 +39,7 @@
 //Por medio de get le enviamos un mensaje 
 	app.get('/', function(req, res){
 		//Enviamos un archivo concatenando el directorio actual mas index.html
-		res.sendFile(path.join(__dirname, '/index.html'));
+		res.sendFile(path.join(__dirname, 'index.html'));
 	});
 
 // De la ruta canciones ejecutamos una funcion
@@ -66,10 +66,35 @@ app.get('/canciones/:nombre', function(req, res){
 	mediaserver.pipe(req, res, cancion);
 });
 
+//Por post, multer estara pendiente de un solo archivo del input name cancion
+	app.post('/canciones', upload.single('cancion'), function(req, res) {
+		var archivo_canciones = path.join(__dirname, 'canciones.json');
+		var nombre = req.file.originalname;
+		//Agregaremos al canciones.json las nuevas canciones
+		fs.readFile(archivo_canciones, 'utf8', function(err, archivo){
+			if (err){
+				throw err;
+			}
+			else{
+				//Transforma el texto en un objeto js
+				var canciones = JSON.parse(archivo);
+				canciones.push({nombre: nombre});
+				//Pasamos de un objeto a texto
+				fs.writeFile(archivo_canciones, JSON.stringify(canciones), function(err){
+					if (err){
+						throw err;
+					}else{
+						res.sendFile(path.join(__dirname, 'index.html'));
+					}
+				});
+			}
+		});
+	});
+
 // Le decimos en que puerto escuchara
-app.listen(3000, function(){
-	console.log('aplicacion corriendo');
-});
+	app.listen(3000, function(){
+		console.log('aplicacion corriendo');
+	});
 
 //lo corremos con node index
 //podemos ver en http://localhost:3000/ el mensaje
