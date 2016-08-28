@@ -6,10 +6,13 @@
 	var express = require('express');
 //Creamos la aplicacion e inicializamos la libreria
 	var app = express();
+// Importamos el modulo path, para manipular los directosios del SO
+	var path = require('path');
 
 //Por medio de get le enviamos un mensaje 
 	app.get('/', function(req, res){
-		res.send('Hola mundo');
+		//Enviamos un archivo concatenando el directorio actual mas index.html
+		res.sendFile(path.join(__dirname, '/index.html'));
 	});
 
 // Le decimos en que puerto escuchara
