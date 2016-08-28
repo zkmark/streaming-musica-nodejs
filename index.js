@@ -10,6 +10,8 @@
 	var path = require('path');
 // Importamos fs (modulo de node que nos permite acceder a archivos de pc)
 	var fs = require('fs');
+// Instalamos media server npm install mediaserver --save (para audio)
+	var mediaserver = require('mediaserver');
 
 // Con el metodo static le asignamos la carpeta estatica
 	app.use(express.static('public'));
@@ -36,6 +38,14 @@ app.get('/canciones', function(req, res){
 			//Revisar en http://localhost:3000/canciones
 		}
 	});
+});
+
+// En la ruta canciones buscamos en el nombre dinamico
+app.get('/canciones/:nombre', function(req, res){
+	//Obtenemos el nombre por parametros
+	var cancion = path.join(__dirname, 'canciones', req.params.nombre);
+	//Con el pipe lo comunicamos, 
+	mediaserver.pipe(req, res, cancion);
 });
 
 // Le decimos en que puerto escuchara
